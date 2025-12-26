@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private float minX;
     private float maxX;
     public GameObject bulletObject;
-    private bool shotLastFrame = false;  // Check if this is the best way to do this
+    private GameObject activeBullet;  // Only allow one bullet on screen
     private float spriteHeight;
 
     void Start()
@@ -28,14 +29,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
+        Shoot();
 
+    }
+
+    void Shoot()
+    {
         bool shootPressed = Keyboard.current.spaceKey.isPressed;
-        if (shootPressed && !shotLastFrame)
+        if (shootPressed && activeBullet == null)
         {
             Vector3 bulletPos = new Vector3(transform.position.x, transform.position.y + (spriteHeight / 2), 1);
-            Instantiate(bulletObject, bulletPos, transform.rotation);
+            activeBullet = Instantiate(bulletObject, bulletPos, transform.rotation);
         }
-        shotLastFrame = shootPressed;  // Player cannot hold to shoot
     }
 
     void MovePlayer()
