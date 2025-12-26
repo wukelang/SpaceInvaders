@@ -6,7 +6,9 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed = 10f;
     private float minX;
     private float maxX;
-    private float spriteWidth;
+    public GameObject bulletObject;
+    private bool shotLastFrame = false;  // Check if this is the best way to do this
+    private float spriteHeight;
 
     void Start()
     {
@@ -15,7 +17,8 @@ public class PlayerController : MonoBehaviour
         // Debug.Log("Screen half width: " + screenHalfWidth);
 
         SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        spriteWidth = spriteRenderer.bounds.extents.x;
+        float spriteWidth = spriteRenderer.bounds.extents.x;
+        spriteHeight = spriteRenderer.bounds.extents.y;
         // Debug.Log("Sprite width: " + spriteWidth);
 
         minX = -screenHalfWidth + spriteWidth;
@@ -25,6 +28,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
+
+        bool shootPressed = Keyboard.current.spaceKey.isPressed;
+        if (shootPressed && !shotLastFrame)
+        {
+            Vector3 bulletPos = new Vector3(transform.position.x, transform.position.y + (spriteHeight / 2), 1);
+            Instantiate(bulletObject, bulletPos, transform.rotation);
+        }
+        shotLastFrame = shootPressed;  // Player cannot hold to shoot
     }
 
     void MovePlayer()
