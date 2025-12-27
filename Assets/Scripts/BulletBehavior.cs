@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal;
 using UnityEngine;
 
 public class BulletBehavior : MonoBehaviour
@@ -18,6 +19,12 @@ public class BulletBehavior : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        bool enemyHit = collision.collider.CompareTag("Enemy");
+        if (enemyHit)
+        {
+            Destroy(collision.gameObject);
+        }
+
         Destroy(gameObject);
     }
 }

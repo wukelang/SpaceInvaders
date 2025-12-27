@@ -4,12 +4,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private float moveSpeed = 10f;
-    private float minX;
-    private float maxX;
+    public float moveSpeed = 10f;
+    [SerializeField] private float minX;
+    [SerializeField] private float maxX;
     public GameObject bulletObject;
-    private GameObject activeBullet;  // Only allow one bullet on screen
-    private float spriteHeight;
+    [SerializeField] private GameObject activeBullet;  // Only allow one bullet on screen
+    [SerializeField] private float spriteHeight;
 
     void Start()
     {
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         {
             currentPos.x += moveSpeed * Time.deltaTime;
         }
-        currentPos.x = Mathf.Clamp(currentPos.x, minX, maxX);
+        currentPos.x = Mathf.Clamp(currentPos.x, minX, maxX);  // Prevent player movement out of camera bounds
 
         transform.position = currentPos;
     }
