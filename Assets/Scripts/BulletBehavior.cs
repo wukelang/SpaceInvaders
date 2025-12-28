@@ -1,10 +1,9 @@
-using NUnit.Framework.Internal;
 using UnityEngine;
 
 public class BulletBehavior : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float bulletSpeed = 7.0f;
+    public float bulletSpeed = 5.0f;
 
     void Start()
     {
@@ -17,12 +16,22 @@ public class BulletBehavior : MonoBehaviour
         
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    // void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     bool enemyHit = collision.collider.CompareTag("Enemy");
+    //     if (enemyHit)
+    //     {
+    //         Destroy(collision.gameObject);
+    //     }
+
+    //     Destroy(gameObject);
+    // }
+
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        bool enemyHit = collision.collider.CompareTag("Enemy");
-        if (enemyHit)
+        if (collider.tag == "Enemy")
         {
-            Destroy(collision.gameObject);
+            Destroy(collider.gameObject);
         }
 
         Destroy(gameObject);

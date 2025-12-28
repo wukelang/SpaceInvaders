@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 10f;
+    public float moveSpeed = 7f;
     [SerializeField] private float minX;
     [SerializeField] private float maxX;
     public GameObject bulletObject;
@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
         SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         float spriteWidth = spriteRenderer.bounds.extents.x;
         spriteHeight = spriteRenderer.bounds.extents.y;
-        // Debug.Log("Sprite width: " + spriteWidth);
 
         minX = -screenHalfWidth + spriteWidth;
         maxX = screenHalfWidth - spriteWidth;
