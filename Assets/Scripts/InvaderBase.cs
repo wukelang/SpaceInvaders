@@ -1,13 +1,12 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Invader : MonoBehaviour
 {
     public Sprite[] animationSprites;
-    public float animationTime = 1.0f;
     private SpriteRenderer spriteRenderer;
     private int animationFrame;
-
 
     void Awake()
     {
@@ -16,10 +15,16 @@ public class Invader : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating(nameof(AnimateSprite), animationTime, animationTime);
+        // InvokeRepeating(nameof(AnimateSprite), animationTime, animationTime);
+        InvaderGroupController groupController = GetComponentInParent<InvaderGroupController>();
+        Debug.Log(groupController);
+        if (groupController != null)
+        {
+            groupController.OnGroupMove += AnimateSprite;
+        }
     }
 
-    void AnimateSprite()
+    public void AnimateSprite()
     {
         animationFrame++;
         if (animationFrame >= animationSprites.Length)
@@ -27,12 +32,14 @@ public class Invader : MonoBehaviour
             animationFrame = 0;
         }
 
-        spriteRenderer.sprite = animationSprites[animationFrame];
+        if (spriteRenderer)
+        {
+            spriteRenderer.sprite = animationSprites[animationFrame];
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log(collider.tag);
         if (collider.tag == "Player")
         {
             Destroy(gameObject);

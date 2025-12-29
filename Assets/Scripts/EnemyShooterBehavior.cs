@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyShooterBehavior : MonoBehaviour
+public class InvaderShooter : MonoBehaviour
 {
 
     public GameObject bulletObj;

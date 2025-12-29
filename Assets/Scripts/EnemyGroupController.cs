@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class InvaderGroupController : MonoBehaviour
 {
     [SerializeField] private int direction = 1;  // 1 = Right, -1 = Left
     [SerializeField] private float moveInterval = 0.5f;
@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
     public int columns = 11;
     public float columnDistance = 1f;
     private int numberOfEnemies;
-
+    public event System.Action OnGroupMove;
 
     void Start()
     {
@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour
     {
         float currentEnemyCount = transform.childCount;
         float enemyKilledRatio = currentEnemyCount / numberOfEnemies;
-        moveInterval = 0.5f * enemyKilledRatio;
+        moveInterval = baseMoveInterval * enemyKilledRatio;
         // Debug.Log($"enemy ratio {currentEnemyCount} / {numberOfEnemies}, {moveInterval}");
 
         timePassed += Time.deltaTime;
@@ -120,6 +120,8 @@ public class EnemyController : MonoBehaviour
         }
 
         transform.position = currentPos;
+
+        OnGroupMove?.Invoke();  // Animate individual enemy sprite
     }
 
 }
