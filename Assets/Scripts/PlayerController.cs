@@ -61,5 +61,16 @@ public class PlayerController : MonoBehaviour
         transform.position = currentPos;
     }
 
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        // if (collider.tag == "Enemy")
+        // {
+        //     Destroy(collider.gameObject);
+        // }
+
+        // If anything touches the player, die
+        Destroy(gameObject);
+    }
+
 
 }

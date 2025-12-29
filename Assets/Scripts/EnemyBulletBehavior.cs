@@ -18,10 +18,10 @@ public class EnemyBulletBehavior : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Player")
-        {
-            Destroy(collider.gameObject);
-        }
+        // if (collider.tag == "Player")
+        // {
+        //     // Destroy(collider.gameObject);
+        // }
 
         if (collider.tag != "Enemy")
         {
