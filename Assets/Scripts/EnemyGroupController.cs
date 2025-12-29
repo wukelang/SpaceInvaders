@@ -1,10 +1,12 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private int direction = 1;  // 1 = Right, -1 = Left
     [SerializeField] private float moveInterval = 0.5f;
+    [SerializeField] private float baseMoveInterval = 0.5f;
     [SerializeField] private float moveDistance = 0.1f;
     [SerializeField] private float downDistance = 0.25f;
     private float timePassed = 0f;
@@ -15,12 +17,14 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float spriteHeight;
     [SerializeField] private float spriteWidth = 0.6f;
 
-    public GameObject enemyObj;
-    public GameObject enemyShooterObj;
-    public int enemyRows = 5;
+    public Invader[] prefabs; 
+
+    public int rows = 5;
     public float rowDistance = 0.8f;
-    public int enemyColumns = 12;
-    public float columnDistance = 0.8f;
+    public int columns = 11;
+    public float columnDistance = 1f;
+    private int numberOfEnemies;
+
 
     void Start()
     {
@@ -34,31 +38,32 @@ public class EnemyController : MonoBehaviour
 
     void GenerateEnemies()
     {
-        float yPointer = 0f;
-        for (int row = 0; row < enemyRows; row++)
+        numberOfEnemies = rows * columns;
+        float width = columnDistance * (columns - 1);
+        float height = rowDistance * (rows - 1);
+        Vector2 center = new Vector2(-width / 2, -height / 2);
+
+        for (int row = 0; row < rows; row++)
         {
-            float xPointer = 0f;
-
-            GameObject enemyToGenerate = enemyShooterObj;
-            if (row != 0)
+            for (int col = 0; col < columns; col++)
             {
-                enemyToGenerate = enemyObj;
-            }
-
-            for (int col = 0; col < enemyColumns; col++)
-            {
-                Vector2 position = new Vector2(transform.position.x + xPointer, transform.position.y + yPointer);
-                Instantiate(enemyToGenerate, position, transform.rotation, transform);
+                float xPointer = col * columnDistance;
+                float yPointer = row * rowDistance;
+                Vector2 position = new Vector2(center.x + xPointer, center.y + yPointer);
+                Invader instance = Instantiate(prefabs[row], transform);
+                instance.transform.localPosition = position;  // Use parent object as "world"
                 // Debug.Log($"enemy generated at {xPointer},{yPointer}");
-                xPointer += columnDistance;
             }
-
-            yPointer -= rowDistance;
         }
     }
 
     void Update()
     {
+        float currentEnemyCount = transform.childCount;
+        float enemyKilledRatio = currentEnemyCount / numberOfEnemies;
+        moveInterval = 0.5f * enemyKilledRatio;
+        // Debug.Log($"enemy ratio {currentEnemyCount} / {numberOfEnemies}, {moveInterval}");
+
         timePassed += Time.deltaTime;
 
         if (timePassed >= moveInterval)
@@ -91,11 +96,11 @@ public class EnemyController : MonoBehaviour
         }
         if (direction > 0)
         {
-            return rightMost >= rightBoundary;
+            return rightMost >= rightBoundary - 0.2f;
         }
         else
         {
-            return leftmost <= leftBoundary;
+            return leftmost <= leftBoundary + 0.2f;
         }
     }
 

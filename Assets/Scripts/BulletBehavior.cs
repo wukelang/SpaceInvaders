@@ -29,10 +29,10 @@ public class BulletBehavior : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Enemy")
-        {
-            Destroy(collider.gameObject);
-        }
+        // if (collider.tag == "Enemy")
+        // {
+        //     Destroy(collider.gameObject);
+        // }
 
         Destroy(gameObject);
     }
