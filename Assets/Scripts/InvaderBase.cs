@@ -1,16 +1,22 @@
-using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Invader : MonoBehaviour
 {
     public Sprite[] animationSprites;
+    public bool canShoot;
+    public GameObject enemyBullet;
+    private float shootTime = 5f;
+    public float minShootTime = 5f;
+    public float maxShootTime = 20f;
+    [SerializeField] private float elapsedTime;
     private SpriteRenderer spriteRenderer;
     private int animationFrame;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        GenerateNewShootTime();
     }
 
     void Start()
@@ -24,7 +30,31 @@ public class Invader : MonoBehaviour
         }
     }
 
-    public void AnimateSprite()
+    void Update()
+    {
+        if (canShoot)
+        {
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= shootTime)
+            {
+                ShootBullet();
+            }
+        }
+    }
+
+    void GenerateNewShootTime()
+    {
+        shootTime = Random.Range(minShootTime, maxShootTime);
+        elapsedTime = 0f;
+    }
+
+    void ShootBullet()
+    {
+        Instantiate(enemyBullet, transform.position, transform.rotation);
+        GenerateNewShootTime();
+    }
+
+    void AnimateSprite()
     {
         animationFrame++;
         if (animationFrame >= animationSprites.Length)
