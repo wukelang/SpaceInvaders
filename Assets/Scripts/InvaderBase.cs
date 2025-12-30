@@ -17,13 +17,15 @@ public class Invader : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         GenerateNewShootTime();
+
+        // GameManager.OnGameStateChanged += 
     }
 
     void Start()
     {
         // InvokeRepeating(nameof(AnimateSprite), animationTime, animationTime);
         InvaderGroupController groupController = GetComponentInParent<InvaderGroupController>();
-        Debug.Log(groupController);
+        // Debug.Log(groupController);
         if (groupController != null)
         {
             groupController.OnGroupMove += AnimateSprite;
@@ -72,7 +74,15 @@ public class Invader : MonoBehaviour
     {
         if (collider.tag == "Player")
         {
+            Debug.Log(GameManager.Instance);
+            GameManager.Instance?.AddScore(10);
             Destroy(gameObject);
         }
+    }
+
+    void OnDestroy()
+    {
+        InvaderGroupController groupController = GetComponentInParent<InvaderGroupController>();
+        groupController.OnGroupMove -= AnimateSprite;
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -13,14 +12,24 @@ public class GameManager : MonoBehaviour
     public enum GameState { Menu, Playing, Paused, GameOver }
     public GameState currentState { get; private set; }
 
+    public static event Action<GameState> OnGameStateChanged;
+
+
     // Game Data
     [SerializeField] private int score;
     [SerializeField] private int lives;
     [SerializeField] private int highScore;
 
-
-    void Start()
+    public void UpdateGameState(GameState newState)
     {
+        currentState = newState;
+
+        OnGameStateChanged?.Invoke(newState);
+    }
+
+    void Awake()
+    {
+        Instance = this;
         InitGame();
     }
 
@@ -40,14 +49,13 @@ public class GameManager : MonoBehaviour
     public void AddScore(int points)
     {
         score += points;
-        Debug.Log("GameManager - Points: " + points);
+        // Debug.Log("GameManager - total score: " + score);
     }
 
     public void LoseLife()
     {
         lives -= 1;
-        Debug.Log("GameManager - lives: " + lives);
-
+        // Debug.Log("GameManager - lives: " + lives);
     }
 
 

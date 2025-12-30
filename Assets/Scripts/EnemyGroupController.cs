@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InvaderGroupController : MonoBehaviour
 {
+    // Make this a static instance?
     [SerializeField] private int direction = 1;  // 1 = Right, -1 = Left
     [SerializeField] private float moveInterval = 0.5f;
     [SerializeField] private float baseMoveInterval = 0.5f;
@@ -24,7 +25,7 @@ public class InvaderGroupController : MonoBehaviour
     public int columns = 11;
     public float columnDistance = 1f;
     private int numberOfEnemies;
-    public event System.Action OnGroupMove;
+    public event Action OnGroupMove;
 
     void Start()
     {
@@ -112,7 +113,7 @@ public class InvaderGroupController : MonoBehaviour
         bool boundaryReached = CheckBoundaryCollision();
         if (boundaryReached)
         {
-            Debug.Log("Boundary Reached");
+            // Debug.Log("Boundary Reached");
 
             direction *= -1;
             currentPos.x += moveDistance * direction;

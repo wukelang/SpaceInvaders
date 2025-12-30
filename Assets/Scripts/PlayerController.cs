@@ -70,16 +70,8 @@ public class PlayerController : MonoBehaviour
         // }
 
         // If anything touches the player, die
-        // Invoke(nameof(ReloadScene), 2.0f);
         Destroy(gameObject);
         GameManager.Instance?.LoseLife();
     }
-
-    void ReloadScene()
-    {
-        Debug.Log("ReloadScene()");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
 
 }
