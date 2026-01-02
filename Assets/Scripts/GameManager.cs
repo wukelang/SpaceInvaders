@@ -12,12 +12,14 @@ public class GameManager : MonoBehaviour
 
     public enum GameState { Menu, Playing, Paused, GameOver }
     public GameState currentState { get; private set; }
-
     public static event Action<GameState> OnGameStateChanged;
+
+    // Gameplay
+    private float elapsedTime = 0f;
     public Vector2 playerSpawnLocation = new Vector2(0, -4.2f);
     public float respawnInvincibilityDuration = 2.0f;
-
-    // Game Data
+    public MysteryShip shipObject;
+    public float shipSpawnFrequency = 10f;
     [SerializeField] private int score;
     [SerializeField] private int lives;
     [SerializeField] private int highScore;
@@ -37,7 +39,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime >= shipSpawnFrequency)
+        {
+            SpawnSpaceship();
+            elapsedTime = 0f;
+        }
+        
+        
     }
 
     void InitGame()
@@ -52,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
         score += points;
         Debug.Log("GameManager - total score: " + score);
-        StartCoroutine(GameDelay(0.3f));
+        // StartCoroutine(GameDelay(0.3f));
     }
 
     public void LoseLife()
@@ -74,6 +83,12 @@ public class GameManager : MonoBehaviour
                 playerScript.EnableInvincibility(respawnInvincibilityDuration);
             }
         }
+    }
+
+    void SpawnSpaceship()
+    {
+        Debug.Log("SpawnSpaceship");
+        Instantiate(shipObject);
     }
 
     IEnumerator GameDelay(float duration)
