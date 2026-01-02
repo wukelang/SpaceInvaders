@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class MysteryShip : MonoBehaviour
 {
-    public float moveSpeed = 0.015f;
+    public float moveSpeed = 1.5f;
+    // [SerializeField] private float moveInterval = 0.1f;
     [SerializeField] private int direction = 1;  // Left = -1, Right = 1
     public int pointValue = 150;
     public float spawnPosY = 3.2f;
@@ -30,13 +31,21 @@ public class MysteryShip : MonoBehaviour
         currentPos.x = direction > 0 ? leftBoundary - width : rightBoundary + width;
         transform.position = currentPos;
 
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocityX = moveSpeed * direction;
     }
 
     void Update()
     {
+        CheckBoundaries();
+        
+    }
+
+    void CheckBoundaries()
+    {
         Vector2 currentPos = transform.position;
-        currentPos.x += moveSpeed * direction;
-        transform.position = currentPos;
+        // currentPos.x += moveSpeed * direction;
+        // transform.position = currentPos;
 
         if (currentPos.x < leftBoundary - width || currentPos.x > rightBoundary + width)
         {

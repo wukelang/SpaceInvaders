@@ -1,7 +1,6 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletObject;
     [SerializeField] private GameObject activeBullet;  // Only allow one bullet on screen
     [SerializeField] private float spriteHeight;
+    [SerializeField] private bool isInvincible = false;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
@@ -18,7 +19,9 @@ public class PlayerController : MonoBehaviour
         float screenHalfWidth = cam.aspect * cam.orthographicSize;
         // Debug.Log("Screen half width: " + screenHalfWidth);
 
-        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        // SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         float spriteWidth = spriteRenderer.bounds.extents.x;
         spriteHeight = spriteRenderer.bounds.extents.y;
 
@@ -62,8 +65,29 @@ public class PlayerController : MonoBehaviour
         transform.position = currentPos;
     }
 
+    public void EnableInvincibility(float duration)
+    {
+        StartCoroutine(InvincibilityCoroutine(duration));
+    }
+
+    IEnumerator InvincibilityCoroutine(float duration)
+    {
+        isInvincible = true;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(0.1f);
+            elapsed += 0.1f;
+        }
+        spriteRenderer.enabled = true;
+        isInvincible = false;
+    }
+
     void OnTriggerEnter2D(Collider2D collider)
     {
+        if (isInvincible) { return; }
+
         Debug.Log(collider.tag);
         if (collider.tag == "EnemyBullet")
         {
@@ -72,7 +96,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // If anything touches the player, die
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
 
 }

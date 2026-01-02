@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
     public GameState currentState { get; private set; }
 
     public static event Action<GameState> OnGameStateChanged;
-
+    public Vector2 playerSpawnLocation = new Vector2(0, -4.2f);
+    public float respawnInvincibilityDuration = 2.0f;
 
     // Game Data
     [SerializeField] private int score;
@@ -51,21 +52,36 @@ public class GameManager : MonoBehaviour
     {
         score += points;
         Debug.Log("GameManager - total score: " + score);
-        Time.timeScale = 0f;
-        GameDelay(1f);
-        Time.timeScale = 1f;
+        StartCoroutine(GameDelay(0.3f));
     }
 
     public void LoseLife()
     {
         lives -= 1;
-        // Debug.Log("GameManager - lives: " + lives);
-        // Time.timeScale = 0f;
+        Debug.Log("GameManager - lives: " + lives);
+        RespawnPlayer();
+    }
+
+    void RespawnPlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
+        {
+            player.transform.position = playerSpawnLocation;
+            PlayerController playerScript = player.GetComponent<PlayerController>();
+            if (playerScript)
+            {
+                playerScript.EnableInvincibility(respawnInvincibilityDuration);
+            }
+        }
     }
 
     IEnumerator GameDelay(float duration)
     {
-        yield return new WaitForSeconds(duration);
+        Debug.Log("game delay - " + duration);
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(duration);
+        Time.timeScale = 1f;
     }
 
     
