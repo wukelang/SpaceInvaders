@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MysteryShip : MonoBehaviour
 {
-    public float moveSpeed = 2.5f;
+    public float moveSpeed = 3f;
     [SerializeField] private int direction = 1;  // Left = -1, Right = 1
     public int pointValue = 50;
     public int[] pointValues = { 50, 100, 150, 300 };
@@ -46,12 +46,10 @@ public class MysteryShip : MonoBehaviour
 
     void CheckBoundaries()
     {
-        Vector2 currentPos = transform.position;
-        // currentPos.x += moveSpeed * direction;
-        // transform.position = currentPos;
-
-        if (currentPos.x < leftBoundary - width || currentPos.x > rightBoundary + width)
+        float buffer = 0.5f;  // Prevent out of bounds on instantiate?
+        if (transform.position.x + buffer < leftBoundary - width || transform.position.x - buffer > rightBoundary + width)
         {
+            Debug.Log("spaceship - out of bounds");
             Destroy(gameObject);
         }
     }

@@ -119,6 +119,61 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &29308706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 29308708}
+  - component: {fileID: 29308707}
+  m_Layer: 0
+  m_Name: GameUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &29308707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29308706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 9d0d99d5070884549a742fad0fe145d1, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 0290d3a2656b5344ab487f7d9fb8c7f6, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!4 &29308708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29308706}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.14621, y: 0.38398, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &446661243
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,17 +448,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &630779091 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 399320530551092613, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-  m_PrefabInstance: {fileID: 6379082769602382052}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3bc62184f0731b48a1c3ecf9b152c01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MysteryShip
 --- !u!1 &647378012
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +618,7 @@ MonoBehaviour:
   startingLives: 3
   playerSpawnLocation: {x: 0, y: -4.2}
   respawnInvincibilityDuration: 2
-  shipObject: {fileID: 630779091}
+  shipObject: {fileID: 399320530551092613, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
   shipSpawnFrequency: 10
   score: 0
   lives: 0
@@ -1026,63 +1070,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc119c28570880146aa097c134717823, type: 3}
---- !u!1001 &6379082769602382052
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3879728187750817357, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -7.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879728187750817357, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879728187750817357, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879728187750817357, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879728187750817357, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879728187750817357, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879728187750817357, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879728187750817357, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879728187750817357, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879728187750817357, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806955434679449534, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
-      propertyPath: m_Name
-      value: MysteryShip
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 551a6ed11a0d3c745acbeb3e3ee9a260, type: 3}
 --- !u!1001 &7358761332677368900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1148,7 +1135,7 @@ SceneRoots:
   - {fileID: 1289869055}
   - {fileID: 7358761332677368900}
   - {fileID: 6002306057594149390}
-  - {fileID: 6379082769602382052}
   - {fileID: 891117236}
   - {fileID: 1835733879}
   - {fileID: 903560439}
+  - {fileID: 29308708}

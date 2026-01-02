@@ -151,11 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3bc62184f0731b48a1c3ecf9b152c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MysteryShip
-  moveSpeed: 1.5
+  moveSpeed: 3
   direction: 1
-  pointValue: 150
+  pointValue: 50
+  pointValues: 3200000064000000960000002c010000
   spawnPosY: 3.2
-  spawnPosX: 0
 --- !u!50 &8362052530390968368
 Rigidbody2D:
   serializedVersion: 5

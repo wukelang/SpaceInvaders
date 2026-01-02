@@ -1,3 +1,4 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Label text="Label" name="Score" />
+    <ui:Label text="SCORE: 0" name="ScoreLabel" style="background-color: rgba(255, 0, 0, 0.25); color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/UI/sprint-2.otf?fileID=12800000&amp;guid=a40a0de237142a0499d19d2df9de8051&amp;type=3#sprint-2&quot;); width: 134px;" />
+    <ui:Label text="LIVES: 0" name="LivesLabel" style="background-color: rgba(255, 0, 0, 0.25); color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/UI/sprint-2.otf?fileID=12800000&amp;guid=a40a0de237142a0499d19d2df9de8051&amp;type=3#sprint-2&quot;); width: 134px; white-space: pre; position: relative; top: auto; left: auto;" />
 </ui:UXML>
