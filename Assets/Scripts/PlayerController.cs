@@ -64,14 +64,15 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        // if (collider.tag == "Enemy")
-        // {
-        //     Destroy(collider.gameObject);
-        // }
+        Debug.Log(collider.tag);
+        if (collider.tag == "EnemyBullet")
+        {
+            GameManager.Instance?.LoseLife();
+            // Destroy(collider.gameObject);
+        }
 
         // If anything touches the player, die
         Destroy(gameObject);
-        GameManager.Instance?.LoseLife();
     }
 
 }

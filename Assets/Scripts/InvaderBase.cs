@@ -9,6 +9,7 @@ public class Invader : MonoBehaviour
     private float shootTime = 5f;
     public float minShootTime = 5f;
     public float maxShootTime = 20f;
+    public int pointValue = 0;
     [SerializeField] private float elapsedTime;
     private SpriteRenderer spriteRenderer;
     private int animationFrame;
@@ -72,10 +73,10 @@ public class Invader : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "PlayerBullet")
         {
             Debug.Log(GameManager.Instance);
-            GameManager.Instance?.AddScore(10);
+            GameManager.Instance?.AddScore(pointValue);
             Destroy(gameObject);
         }
     }
@@ -83,6 +84,9 @@ public class Invader : MonoBehaviour
     void OnDestroy()
     {
         InvaderGroupController groupController = GetComponentInParent<InvaderGroupController>();
-        groupController.OnGroupMove -= AnimateSprite;
+        if (groupController)
+        {
+            groupController.OnGroupMove -= AnimateSprite;
+        }
     }
 }

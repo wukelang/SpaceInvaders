@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2873137975136534124}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Player
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 1390818231180551094}
   m_Layer: 0
   m_Name: PlayerBullet
-  m_TagString: Player
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

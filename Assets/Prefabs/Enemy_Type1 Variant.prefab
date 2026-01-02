@@ -13,6 +13,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1405975240671400771, guid: 23634769426614047a97ca17ac69aeb9, type: 3}
+      propertyPath: pointValue
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: -1405975240671400771, guid: 23634769426614047a97ca17ac69aeb9, type: 3}
       propertyPath: enemyBullet
       value: 
       objectReference: {fileID: 4640216701286364639, guid: 7707d1ecfd83af942903dc3157fc860a, type: 3}

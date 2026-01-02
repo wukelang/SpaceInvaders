@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1405975240671400771, guid: 23634769426614047a97ca17ac69aeb9, type: 3}
+      propertyPath: pointValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: -1405975240671400771, guid: 23634769426614047a97ca17ac69aeb9, type: 3}
       propertyPath: animationSprites.Array.size
       value: 2
       objectReference: {fileID: 0}
