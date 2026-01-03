@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -46,9 +47,26 @@ public class UIManager : MonoBehaviour
 
     public void UpdateLives(int lives)
     {
+        VisualElement livesContainer = uiDocument.rootVisualElement.Q<VisualElement>("LivesContainer");
+        // List<VisualElement> lifeIcons = new List<VisualElement>();
+
         if (livesText != null)
         {
             livesText.text = $"{lives}";
+        }
+
+        // Icons
+        for (int i = 0; i < livesContainer.childCount; i++)
+        {
+            VisualElement lifeIcon = livesContainer[i];
+
+            if (i < lives)
+            {
+                lifeIcon.style.display = DisplayStyle.Flex;
+            } else
+            {
+                lifeIcon.style.display = DisplayStyle.None;
+            }
         }
     }
 
