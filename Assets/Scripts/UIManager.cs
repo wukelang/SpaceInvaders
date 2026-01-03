@@ -1,16 +1,56 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public UIDocument uiDocument;
+
+    [Header("Gameplay UI")]
+    [SerializeField] private Label scoreText;
+    [SerializeField] private Label livesText;
+    [SerializeField] private Label highScoreText;
+
+    [Header("Game Over UI")]
+    [SerializeField] private Label gameOverText;
+    [SerializeField] private Label finalScoreText;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button mainMenuButton;
+
+    [Header("Pause Menu")]
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button pauseMenuButton;
+
+
     void Start()
     {
-        
+        scoreText = uiDocument.rootVisualElement.Q<Label>("ScoreLabel");
+        livesText = uiDocument.rootVisualElement.Q<Label>("LivesLabel");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateScore(int score)
     {
-        
+        if (scoreText != null)
+        {
+            scoreText.text = $"Score\n\n{score}";
+        }
     }
+
+    public void UpdateHighScore(int highscore)
+    {
+        if (highScoreText != null)
+        {
+            highScoreText.text = $"Hi-Score\n\n{highscore}";
+        }
+    }
+
+    public void UpdateLives(int lives)
+    {
+        if (livesText != null)
+        {
+            livesText.text = $"{lives}";
+        }
+    }
+
+
 }

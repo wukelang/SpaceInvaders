@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int startingScore = 0;
     [SerializeField] private int startingLives = 3;
 
+    [SerializeField] private UIManager uiManager;
+
     public enum GameState { Menu, Playing, Paused, GameOver }
     public GameState currentState { get; private set; }
     public static event Action<GameState> OnGameStateChanged;
@@ -19,7 +21,7 @@ public class GameManager : MonoBehaviour
     public Vector2 playerSpawnLocation = new Vector2(0, -4.2f);
     public float respawnInvincibilityDuration = 2.0f;
     public MysteryShip shipObject;
-    public float shipSpawnFrequency = 10f;
+    public float shipSpawnFrequency = 15f;
     [SerializeField] private int score;
     [SerializeField] private int lives;
     [SerializeField] private int highScore;
@@ -45,8 +47,7 @@ public class GameManager : MonoBehaviour
             SpawnSpaceship();
             elapsedTime = 0f;
         }
-        
-        
+                
     }
 
     void InitGame()
@@ -57,18 +58,33 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    void UpdateUI()
+    {
+        Debug.Log("update ui");
+        if (uiManager)
+        {
+            uiManager.UpdateScore(score);
+            uiManager.UpdateLives(lives);
+            uiManager.UpdateHighScore(highScore);
+        }
+    }
+
     public void AddScore(int points)
     {
         score += points;
-        Debug.Log("GameManager - total score: " + score);
+        // Debug.Log("GameManager - total score: " + score);
         // StartCoroutine(GameDelay(0.3f));
+
+        UpdateUI();
     }
 
     public void LoseLife()
     {
         lives -= 1;
-        Debug.Log("GameManager - lives: " + lives);
+        // Debug.Log("GameManager - lives: " + lives);
         RespawnPlayer();
+
+        UpdateUI();
     }
 
     void RespawnPlayer()

@@ -24,9 +24,7 @@ public class Invader : MonoBehaviour
 
     void Start()
     {
-        // InvokeRepeating(nameof(AnimateSprite), animationTime, animationTime);
         InvaderGroupController groupController = GetComponentInParent<InvaderGroupController>();
-        // Debug.Log(groupController);
         if (groupController != null)
         {
             groupController.OnGroupMove += AnimateSprite;
@@ -75,7 +73,6 @@ public class Invader : MonoBehaviour
     {
         if (collider.tag == "PlayerBullet")
         {
-            Debug.Log(GameManager.Instance);
             GameManager.Instance?.AddScore(pointValue);
             Destroy(gameObject);
         }
