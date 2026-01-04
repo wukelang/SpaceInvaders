@@ -19,9 +19,9 @@ public class EnemyGroupController : MonoBehaviour
 
     public Invader[] prefabs; 
     public int rows = 5;
-    public float rowDistance = 0.8f;
+    public float rowDistance = 0.75f;
     public int columns = 11;
-    public float columnDistance = 1f;
+    public float columnDistance = 0.85f;
     private int numberOfEnemies;
     public event Action OnGroupMove;
 

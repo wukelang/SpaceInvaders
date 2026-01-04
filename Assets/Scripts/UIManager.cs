@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Label scoreText;
     [SerializeField] private Label livesText;
     [SerializeField] private Label highScoreText;
+    [SerializeField] private Label waveText;
 
     [Header("Game Over UI")]
     [SerializeField] private Label gameOverText;
@@ -26,6 +27,8 @@ public class UIManager : MonoBehaviour
     {
         scoreText = uiDocument.rootVisualElement.Q<Label>("ScoreLabel");
         livesText = uiDocument.rootVisualElement.Q<Label>("LivesLabel");
+        highScoreText = uiDocument.rootVisualElement.Q<Label>("HighScoreLabel");
+        waveText = uiDocument.rootVisualElement.Q<Label>("WaveLabel");
     }
 
     public void UpdateScore(int score)
@@ -68,5 +71,12 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void UpdateWave(int waveCount)
+    {
+        if (highScoreText != null)
+        {
+            waveText.text = $"Wave\n\n{waveCount}";
+        }
+    }
 
 }

@@ -10,14 +10,13 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     [SerializeField] private int startingScore = 0;
     [SerializeField] private int startingLives = 3;
-    [SerializeField] private int startingWave = 1;
+    [SerializeField] private int startingWave = 0;
 
     [SerializeField] private UIManager uiManager;
 
     public enum GameState { Menu, Playing, Paused, GameOver }
     public GameState currentState { get; private set; }
     public static event Action<GameState> OnGameStateChanged;
-    public static event Action OnWaveClear;
 
     // Gameplay
     private float elapsedTime = 0f;
@@ -25,6 +24,7 @@ public class GameManager : MonoBehaviour
     public float respawnInvincibilityDuration = 2.0f;
     public EnemyGroupController enemyGroupObject;
     public float enemyGroupSpawnY = 1.0f;
+    private EnemyGroupController currentWaveEnemyGroup;
     public MysteryShip shipObject;
     public float shipSpawnFrequency = 15f;
     [SerializeField] private int score;
@@ -53,6 +53,12 @@ public class GameManager : MonoBehaviour
             SpawnSpaceship();
             elapsedTime = 0f;
         }
+
+        if (currentWaveEnemyGroup == null)
+        {
+            // TODO: display wave number before spawning?
+            SpawnWave();
+        }
     }
 
     void InitGame()
@@ -71,6 +77,17 @@ public class GameManager : MonoBehaviour
         InitGame();
     }
 
+    void SpawnWave()
+    {
+        float ySpawnOffset = waveCount * 0.2f;
+        Debug.Log($"SpawnWave at offset: {ySpawnOffset}");
+        Vector2 spawnPos = new Vector2(0, enemyGroupSpawnY - ySpawnOffset);
+        currentWaveEnemyGroup = Instantiate(enemyGroupObject, spawnPos, transform.rotation);
+        waveCount += 1;
+
+        UpdateUI();
+    }
+
     void UpdateUI()
     {
         if (uiManager)
@@ -78,6 +95,7 @@ public class GameManager : MonoBehaviour
             uiManager.UpdateScore(score);
             uiManager.UpdateLives(lives);
             uiManager.UpdateHighScore(highScore);
+            uiManager.UpdateWave(waveCount);
         }
     }
 
@@ -102,6 +120,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("RestartGame");
             RestartGame();
         }
+    }
+
+    void GameOver()
+    {
+        Time.timeScale = 0f;
+
     }
 
     void RespawnPlayer()
@@ -131,5 +155,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    
+
 }
