@@ -18,13 +18,11 @@ public class Invader : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         GenerateNewShootTime();
-
-        // GameManager.OnGameStateChanged += 
     }
 
     void Start()
     {
-        InvaderGroupController groupController = GetComponentInParent<InvaderGroupController>();
+        EnemyGroupController groupController = GetComponentInParent<EnemyGroupController>();
         if (groupController != null)
         {
             groupController.OnGroupMove += AnimateSprite;
@@ -80,7 +78,7 @@ public class Invader : MonoBehaviour
 
     void OnDestroy()
     {
-        InvaderGroupController groupController = GetComponentInParent<InvaderGroupController>();
+        EnemyGroupController groupController = GetComponentInParent<EnemyGroupController>();
         if (groupController)
         {
             groupController.OnGroupMove -= AnimateSprite;

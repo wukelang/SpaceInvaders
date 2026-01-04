@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,22 +10,27 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     [SerializeField] private int startingScore = 0;
     [SerializeField] private int startingLives = 3;
+    [SerializeField] private int startingWave = 1;
 
     [SerializeField] private UIManager uiManager;
 
     public enum GameState { Menu, Playing, Paused, GameOver }
     public GameState currentState { get; private set; }
     public static event Action<GameState> OnGameStateChanged;
+    public static event Action OnWaveClear;
 
     // Gameplay
     private float elapsedTime = 0f;
-    public Vector2 playerSpawnLocation = new Vector2(0, -4.2f);
+    public Vector2 playerSpawnLocation = new Vector2(0, -4f);
     public float respawnInvincibilityDuration = 2.0f;
+    public EnemyGroupController enemyGroupObject;
+    public float enemyGroupSpawnY = 1.0f;
     public MysteryShip shipObject;
     public float shipSpawnFrequency = 15f;
     [SerializeField] private int score;
     [SerializeField] private int lives;
     [SerializeField] private int highScore;
+    [SerializeField] private int waveCount;
 
     public void UpdateGameState(GameState newState)
     {
@@ -47,7 +53,6 @@ public class GameManager : MonoBehaviour
             SpawnSpaceship();
             elapsedTime = 0f;
         }
-                
     }
 
     void InitGame()
@@ -55,12 +60,19 @@ public class GameManager : MonoBehaviour
         score = startingScore;
         lives = startingLives;
         currentState = GameState.Playing;
+        waveCount = startingWave;
         Time.timeScale = 1f;
+    }
+
+    void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        InitGame();
     }
 
     void UpdateUI()
     {
-        Debug.Log("update ui");
         if (uiManager)
         {
             uiManager.UpdateScore(score);
@@ -81,10 +93,15 @@ public class GameManager : MonoBehaviour
     public void LoseLife()
     {
         lives -= 1;
-        // Debug.Log("GameManager - lives: " + lives);
         RespawnPlayer();
 
         UpdateUI();
+
+        if (lives <= 0)
+        {
+            Debug.Log("RestartGame");
+            RestartGame();
+        }
     }
 
     void RespawnPlayer()
@@ -103,7 +120,6 @@ public class GameManager : MonoBehaviour
 
     void SpawnSpaceship()
     {
-        Debug.Log("SpawnSpaceship");
         Instantiate(shipObject);
     }
 

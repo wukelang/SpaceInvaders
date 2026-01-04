@@ -1,8 +1,7 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class InvaderGroupController : MonoBehaviour
+public class EnemyGroupController : MonoBehaviour
 {
     // Make this a static instance?
     [SerializeField] private int direction = 1;  // 1 = Right, -1 = Left
@@ -19,7 +18,6 @@ public class InvaderGroupController : MonoBehaviour
     [SerializeField] private float spriteWidth = 0.6f;
 
     public Invader[] prefabs; 
-
     public int rows = 5;
     public float rowDistance = 0.8f;
     public int columns = 11;
@@ -73,6 +71,10 @@ public class InvaderGroupController : MonoBehaviour
             MoveRoutine();
         }
 
+        if (currentEnemyCount == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     bool CheckBoundaryCollision()

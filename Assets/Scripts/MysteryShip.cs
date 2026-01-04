@@ -41,7 +41,6 @@ public class MysteryShip : MonoBehaviour
     void Update()
     {
         CheckBoundaries();
-        
     }
 
     void CheckBoundaries()
@@ -49,7 +48,6 @@ public class MysteryShip : MonoBehaviour
         float buffer = 0.5f;  // Prevent out of bounds on instantiate?
         if (transform.position.x + buffer < leftBoundary - width || transform.position.x - buffer > rightBoundary + width)
         {
-            Debug.Log("spaceship - out of bounds");
             Destroy(gameObject);
         }
     }
@@ -60,7 +58,6 @@ public class MysteryShip : MonoBehaviour
         {
             GameManager.Instance?.AddScore(pointValue);
             Destroy(gameObject);
-            // gameObject.SetActive(false);
         }
     }
 }
