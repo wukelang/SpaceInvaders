@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public float enemyGroupSpawnY = 1.0f;
     private EnemyGroupController currentWaveEnemyGroup;
     public MysteryShip shipObject;
-    public float shipSpawnFrequency = 15f;
+    public float shipSpawnFrequency = 20f;
     [SerializeField] private int score;
     [SerializeField] private int lives;
     [SerializeField] private int highScore;
@@ -79,12 +79,17 @@ public class GameManager : MonoBehaviour
 
     void SpawnWave()
     {
+        if (waveCount > 0)
+        {
+            score += 100;
+        }
+
         float ySpawnOffset = waveCount * 0.2f;
         Debug.Log($"SpawnWave at offset: {ySpawnOffset}");
         Vector2 spawnPos = new Vector2(0, enemyGroupSpawnY - ySpawnOffset);
         currentWaveEnemyGroup = Instantiate(enemyGroupObject, spawnPos, transform.rotation);
         waveCount += 1;
-
+        
         UpdateUI();
     }
 

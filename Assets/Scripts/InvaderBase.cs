@@ -6,9 +6,9 @@ public class Invader : MonoBehaviour
     public Sprite[] animationSprites;
     public bool canShoot;
     public GameObject enemyBullet;
-    private float shootTime = 5f;
-    public float minShootTime = 5f;
-    public float maxShootTime = 20f;
+    private float shootTime = 3f;
+    public float minShootTime = 3f;
+    public float maxShootTime = 10f;
     public int pointValue = 0;
     [SerializeField] private float elapsedTime;
     private SpriteRenderer spriteRenderer;
