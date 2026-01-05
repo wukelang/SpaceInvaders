@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
+    public GameObject pauseMenu;
 
-
-    // Update is called once per frame
     void Update()
     {
         

@@ -5,20 +5,20 @@ public class UIManager : MonoBehaviour
 {
     public UIDocument uiDocument;
 
-    [Header("Gameplay UI")]
+    [Header("Gameplay UI, UI Toolkit")]
     [SerializeField] private Label scoreText;
     [SerializeField] private Label livesText;
     [SerializeField] private Label highScoreText;
     [SerializeField] private Label waveText;
 
-    [Header("Game Over UI")]
-    [SerializeField] private Label gameOverText;
+    [Header("Game Over UI, UGUI")]
+    [SerializeField] private GameObject gameOverMenu;
     [SerializeField] private Label finalScoreText;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button mainMenuButton;
 
-    [Header("Pause Menu")]
-    [SerializeField] private GameObject pausePanel;
+    [Header("Pause Menu, UGUI")]
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button pauseMenuButton;
 
@@ -29,6 +29,21 @@ public class UIManager : MonoBehaviour
         livesText = uiDocument.rootVisualElement.Q<Label>("LivesLabel");
         highScoreText = uiDocument.rootVisualElement.Q<Label>("HighScoreLabel");
         waveText = uiDocument.rootVisualElement.Q<Label>("WaveLabel");
+    }
+
+    void SetupButtons()
+    {
+        if (restartButton != null)
+            restartButton.clicked += GameManager.Instance.RestartGame;
+
+        if (mainMenuButton != null)
+            mainMenuButton.clicked += GameManager.Instance.LoadMainMenu;
+
+        if (resumeButton != null)
+            resumeButton.clicked += GameManager.Instance.ResumeGame;
+
+        if (pauseMenuButton != null)
+            pauseMenuButton.clicked += GameManager.Instance.LoadMainMenu;
     }
 
     public void UpdateScore(int score)
@@ -64,7 +79,8 @@ public class UIManager : MonoBehaviour
             if (i < lives)
             {
                 lifeIcon.style.display = DisplayStyle.Flex;
-            } else
+            }
+            else
             {
                 lifeIcon.style.display = DisplayStyle.None;
             }
@@ -79,4 +95,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowPauseMenu(bool isTrue)
+    {
+        if (pauseMenu)
+            pauseMenu.SetActive(isTrue);
+    }
+
+    public void ShowGameOverScreen(bool isTrue)
+    {
+        if (gameOverMenu)
+            gameOverMenu.SetActive(isTrue);
+    }
 }

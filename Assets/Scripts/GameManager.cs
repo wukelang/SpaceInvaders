@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,13 +33,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int highScore;
     [SerializeField] private int waveCount;
 
-    public void UpdateGameState(GameState newState)
-    {
-        currentState = newState;
-
-        OnGameStateChanged?.Invoke(newState);
-    }
-
     void Awake()
     {
         Instance = this;
@@ -59,22 +53,19 @@ public class GameManager : MonoBehaviour
             // TODO: display wave number before spawning?
             SpawnWave();
         }
-    }
 
-    void InitGame()
-    {
-        score = startingScore;
-        lives = startingLives;
-        currentState = GameState.Playing;
-        waveCount = startingWave;
-        Time.timeScale = 1f;
-    }
-
-    void RestartGame()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        InitGame();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Debug.Log("Escape pressed");
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (currentState == GameState.Paused)
+            {
+                ResumeGame();
+            }
+        }
     }
 
     void SpawnWave()
@@ -84,12 +75,11 @@ public class GameManager : MonoBehaviour
             score += 100;
         }
 
-        float ySpawnOffset = waveCount * 0.2f;
-        Debug.Log($"SpawnWave at offset: {ySpawnOffset}");
+        float ySpawnOffset = waveCount * 0.25f;
         Vector2 spawnPos = new Vector2(0, enemyGroupSpawnY - ySpawnOffset);
         currentWaveEnemyGroup = Instantiate(enemyGroupObject, spawnPos, transform.rotation);
         waveCount += 1;
-        
+
         UpdateUI();
     }
 
@@ -160,5 +150,48 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    // Game State
+    public void UpdateGameState(GameState newState)
+    {
+        currentState = newState;
+
+        OnGameStateChanged?.Invoke(newState);
+    }
+
+    void InitGame()
+    {
+        score = startingScore;
+        lives = startingLives;
+        currentState = GameState.Playing;
+        waveCount = startingWave;
+        Time.timeScale = 1f;
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        InitGame();
+    }
+
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void PauseGame()
+    {
+        currentState = GameState.Paused;
+        Time.timeScale = 0f;
+        uiManager.ShowPauseMenu(true);
+    }
+
+    public void ResumeGame()
+    {
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;
+        uiManager.ShowPauseMenu(false);
+    }
 
 }
