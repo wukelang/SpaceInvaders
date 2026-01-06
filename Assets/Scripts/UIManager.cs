@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,7 +14,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Game Over UI, UGUI")]
     [SerializeField] private GameObject gameOverMenu;
-    [SerializeField] private Label finalScoreText;
+    [SerializeField] private TextMeshProUGUI finalScoreText;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button mainMenuButton;
 
@@ -33,17 +34,17 @@ public class UIManager : MonoBehaviour
 
     void SetupButtons()
     {
-        if (restartButton != null)
-            restartButton.clicked += GameManager.Instance.RestartGame;
+        // if (restartButton != null)
+        //     restartButton.clicked += GameManager.Instance.RestartGame;
 
-        if (mainMenuButton != null)
-            mainMenuButton.clicked += GameManager.Instance.LoadMainMenu;
+        // if (mainMenuButton != null)
+        //     mainMenuButton.clicked += GameManager.Instance.LoadMainMenu;
 
-        if (resumeButton != null)
-            resumeButton.clicked += GameManager.Instance.ResumeGame;
+        // if (resumeButton != null)
+        //     resumeButton.clicked += GameManager.Instance.ResumeGame;
 
-        if (pauseMenuButton != null)
-            pauseMenuButton.clicked += GameManager.Instance.LoadMainMenu;
+        // if (pauseMenuButton != null)
+        //     pauseMenuButton.clicked += GameManager.Instance.LoadMainMenu;
     }
 
     public void UpdateScore(int score)

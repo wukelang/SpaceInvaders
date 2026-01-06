@@ -21,17 +21,19 @@ public class GameManager : MonoBehaviour
 
     // Gameplay
     private float elapsedTime = 0f;
+    // public PlayerController playerObject;
     public Vector2 playerSpawnLocation = new Vector2(0, -4f);
+
     public float respawnInvincibilityDuration = 2.0f;
     public EnemyGroupController enemyGroupObject;
     public float enemyGroupSpawnY = 1.0f;
     private EnemyGroupController currentWaveEnemyGroup;
     public MysteryShip shipObject;
     public float shipSpawnFrequency = 20f;
-    [SerializeField] private int score;
-    [SerializeField] private int lives;
-    [SerializeField] private int highScore;
-    [SerializeField] private int waveCount;
+    public int score;
+    public int lives;
+    public int waveCount;
+    private int highScore;
 
     void Awake()
     {
@@ -56,7 +58,6 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // Debug.Log("Escape pressed");
             if (currentState == GameState.Playing)
             {
                 PauseGame();
@@ -106,21 +107,17 @@ public class GameManager : MonoBehaviour
     public void LoseLife()
     {
         lives -= 1;
-        RespawnPlayer();
-
-        UpdateUI();
 
         if (lives <= 0)
         {
-            Debug.Log("RestartGame");
-            RestartGame();
+            GameOver();
         }
-    }
+        else
+        {
+            RespawnPlayer();   
+        }
 
-    void GameOver()
-    {
-        Time.timeScale = 0f;
-
+        UpdateUI();
     }
 
     void RespawnPlayer()
@@ -194,4 +191,10 @@ public class GameManager : MonoBehaviour
         uiManager.ShowPauseMenu(false);
     }
 
+    public void GameOver()
+    {
+        currentState = GameState.GameOver;
+        Time.timeScale = 0f;
+        uiManager.ShowGameOverScreen(true);
+    }
 }

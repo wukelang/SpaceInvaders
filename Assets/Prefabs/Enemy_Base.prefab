@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3666778863391331673}
   - component: {fileID: 7727827230121365620}
   - component: {fileID: -1405975240671400771}
+  - component: {fileID: 8040940029072922224}
   m_Layer: 0
   m_Name: Enemy_Base
   m_TagString: Enemy
@@ -151,4 +152,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   animationSprites: []
-  animationTime: 1
+  canShoot: 0
+  enemyBullet: {fileID: 0}
+  minShootTime: 5
+  maxShootTime: 20
+  pointValue: 0
+  elapsedTime: 0
+--- !u!50 &8040940029072922224
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5766018631412793351}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

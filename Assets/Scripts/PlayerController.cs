@@ -88,15 +88,16 @@ public class PlayerController : MonoBehaviour
     {
         if (isInvincible) { return; }
 
-        Debug.Log(collider.tag);
         if (collider.tag == "EnemyBullet")
         {
             GameManager.Instance?.LoseLife();
-            // Destroy(collider.gameObject);
+        } 
+        else if (collider.tag == "Enemy")
+        {
+            GameManager.Instance?.GameOver();
         }
 
-        // If anything touches the player, die
-        // Destroy(gameObject);
+        spriteRenderer.enabled = false;
     }
 
 }
