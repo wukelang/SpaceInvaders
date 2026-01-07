@@ -150,14 +150,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75d44cbbad6d5cd46ad6ab36b87f0a05, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  m_EditorClassIdentifier: Assembly-CSharp::Invader
   animationSprites: []
   canShoot: 0
   enemyBullet: {fileID: 0}
-  minShootTime: 5
-  maxShootTime: 20
+  minShootTime: 3
+  maxShootTime: 10
   pointValue: 0
   elapsedTime: 0
+  onDeathParticleEffect: {fileID: 810547073513503266, guid: 63bee19ae47f69949832c8fa2cec2d66, type: 3}
 --- !u!50 &8040940029072922224
 Rigidbody2D:
   serializedVersion: 5

@@ -11,6 +11,7 @@ public class MysteryShip : MonoBehaviour
     private float leftBoundary;
     private float rightBoundary;
     private float width;
+    public GameObject onDeathParticleEffect;
 
     void Awake()
     {
@@ -57,6 +58,7 @@ public class MysteryShip : MonoBehaviour
         if (collider.tag == "PlayerBullet")
         {
             GameManager.Instance?.AddScore(pointValue);
+            Instantiate(onDeathParticleEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

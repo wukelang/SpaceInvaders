@@ -157,3 +157,4 @@ MonoBehaviour:
   activeBullet: {fileID: 0}
   spriteHeight: 0
   isInvincible: 0
+  onDeathParticleEffect: {fileID: 810547073513503266, guid: 63bee19ae47f69949832c8fa2cec2d66, type: 3}

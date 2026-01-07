@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float spriteHeight;
     [SerializeField] private bool isInvincible = false;
     private SpriteRenderer spriteRenderer;
+    public GameObject onDeathParticleEffect;
 
     void Start()
     {
@@ -87,6 +88,8 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (isInvincible) { return; }
+
+        Instantiate(onDeathParticleEffect, transform.position, transform.rotation);
 
         if (collider.tag == "EnemyBullet")
         {

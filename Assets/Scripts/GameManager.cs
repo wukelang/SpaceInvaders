@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameState { Menu, Playing, Paused, GameOver }
     public GameState currentState { get; private set; }
-    public static event Action<GameState> OnGameStateChanged;
+    private const string HIGH_SCORE_KEY = "HighScore";
 
     // Gameplay
     private float elapsedTime = 0f;
@@ -34,11 +32,15 @@ public class GameManager : MonoBehaviour
     public int lives;
     public int waveCount;
     private int highScore;
+    private int savedHighScore;
 
     void Awake()
     {
         Instance = this;
         InitGame();
+
+        highScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY, 0);
+        savedHighScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY, 0);
     }
 
     void Update()
@@ -71,10 +73,10 @@ public class GameManager : MonoBehaviour
 
     void SpawnWave()
     {
-        if (waveCount > 0)
-        {
-            score += 100;
-        }
+        // if (waveCount > 0)
+        // {
+        //     score += 100;
+        // }
 
         float ySpawnOffset = waveCount * 0.25f;
         Vector2 spawnPos = new Vector2(0, enemyGroupSpawnY - ySpawnOffset);
@@ -100,6 +102,10 @@ public class GameManager : MonoBehaviour
         score += points;
         // Debug.Log("GameManager - total score: " + score);
         // StartCoroutine(GameDelay(0.3f));
+        if (score > highScore)
+        {
+            highScore = score;
+        }
 
         UpdateUI();
     }
@@ -148,12 +154,12 @@ public class GameManager : MonoBehaviour
     }
 
     // Game State
-    public void UpdateGameState(GameState newState)
-    {
-        currentState = newState;
+    // public void UpdateGameState(GameState newState)
+    // {
+    //     currentState = newState;
 
-        OnGameStateChanged?.Invoke(newState);
-    }
+    //     OnGameStateChanged?.Invoke(newState);
+    // }
 
     void InitGame()
     {
@@ -193,8 +199,17 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        lives = 0;
+        UpdateUI();
+
+        if (score > savedHighScore)
+        {
+            PlayerPrefs.SetInt(HIGH_SCORE_KEY, score);
+            PlayerPrefs.Save();
+        }
+
         currentState = GameState.GameOver;
-        Time.timeScale = 0f;
+        // Time.timeScale = 0f;
         uiManager.ShowGameOverScreen(true);
     }
 }

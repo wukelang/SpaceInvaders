@@ -13,6 +13,7 @@ public class Invader : MonoBehaviour
     [SerializeField] private float elapsedTime;
     private SpriteRenderer spriteRenderer;
     private int animationFrame;
+    public GameObject onDeathParticleEffect;
 
     void Awake()
     {
@@ -72,8 +73,10 @@ public class Invader : MonoBehaviour
         if (collider.tag == "PlayerBullet")
         {
             GameManager.Instance?.AddScore(pointValue);
+            Instantiate(onDeathParticleEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
+
     }
 
     void OnDestroy()

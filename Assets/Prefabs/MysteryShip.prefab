@@ -156,6 +156,7 @@ MonoBehaviour:
   pointValue: 50
   pointValues: 3200000064000000960000002c010000
   spawnPosY: 3.2
+  onDeathParticleEffect: {fileID: 810547073513503266, guid: 63bee19ae47f69949832c8fa2cec2d66, type: 3}
 --- !u!50 &8362052530390968368
 Rigidbody2D:
   serializedVersion: 5
