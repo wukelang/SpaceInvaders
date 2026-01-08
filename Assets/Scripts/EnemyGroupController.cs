@@ -5,9 +5,9 @@ public class EnemyGroupController : MonoBehaviour
 {
     // Make this a static instance?
     [SerializeField] private int direction = 1;  // 1 = Right, -1 = Left
-    [SerializeField] private float moveInterval = 0.5f;
-    [SerializeField] private float baseMoveInterval = 0.5f;
-    [SerializeField] private float moveDistance = 0.1f;
+    [SerializeField] private float moveInterval = 0.8f;
+    [SerializeField] private float baseMoveInterval = 0.8f;
+    [SerializeField] private float moveDistance = 0.15f;
     [SerializeField] private float downDistance = 0.25f;
     private float timePassed = 0f;
     [SerializeField] private float leftBoundary;
@@ -24,6 +24,10 @@ public class EnemyGroupController : MonoBehaviour
     public float columnDistance = 0.85f;
     private int numberOfEnemies;
     public event Action OnGroupMove;
+    private AudioSource audioSource;
+    public AudioClip[] tones;
+    private bool tonePlayed = false;
+    [SerializeField] private int currentToneIndex = 0;
 
     void Start()
     {
@@ -33,6 +37,8 @@ public class EnemyGroupController : MonoBehaviour
         float screenHalfWidth = cam.aspect * cam.orthographicSize;
         leftBoundary = -screenHalfWidth;
         rightBoundary = screenHalfWidth;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void GenerateEnemies()
@@ -125,6 +131,16 @@ public class EnemyGroupController : MonoBehaviour
         transform.position = currentPos;
 
         OnGroupMove?.Invoke();  // Animate individual enemy sprite
+        // Debug.Log($"{tones.Length}, {currentToneIndex}, {tones[currentToneIndex].name}");
+        audioSource.clip = tones[currentToneIndex];
+
+        if (tonePlayed)  // Reduce sfx freq by half
+        {
+            audioSource.Play();
+            currentToneIndex = (currentToneIndex + 1) % tones.Length;
+        }
+        tonePlayed = !tonePlayed;
+
     }
 
 }

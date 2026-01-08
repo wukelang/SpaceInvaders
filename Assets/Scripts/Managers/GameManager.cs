@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour
         // }
 
         float ySpawnOffset = waveCount * 0.25f;
+        if (ySpawnOffset < -2) 
+            ySpawnOffset = -2;
         Vector2 spawnPos = new Vector2(0, enemyGroupSpawnY - ySpawnOffset);
         currentWaveEnemyGroup = Instantiate(enemyGroupObject, spawnPos, transform.rotation);
         waveCount += 1;
@@ -209,7 +211,7 @@ public class GameManager : MonoBehaviour
         }
 
         currentState = GameState.GameOver;
-        // Time.timeScale = 0f;
+        Time.timeScale = 0f;
         uiManager.ShowGameOverScreen(true);
     }
 }
