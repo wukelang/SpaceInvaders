@@ -73,11 +73,6 @@ public class GameManager : MonoBehaviour
 
     void SpawnWave()
     {
-        // if (waveCount > 0)
-        // {
-        //     score += 100;
-        // }
-
         float ySpawnOffset = waveCount * 0.25f;
         if (ySpawnOffset < -2) 
             ySpawnOffset = -2;
@@ -156,12 +151,6 @@ public class GameManager : MonoBehaviour
     }
 
     // Game State
-    // public void UpdateGameState(GameState newState)
-    // {
-    //     currentState = newState;
-
-    //     OnGameStateChanged?.Invoke(newState);
-    // }
 
     void InitGame()
     {

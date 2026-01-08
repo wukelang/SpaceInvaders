@@ -11,8 +11,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject activeBullet;  // Only allow one bullet on screen
     [SerializeField] private float spriteHeight;
     [SerializeField] private bool isInvincible = false;
+    private bool isDead = false;
+    private Animator animator;
     private SpriteRenderer spriteRenderer;
     public GameObject onDeathParticleEffect;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -22,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
         // SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         float spriteWidth = spriteRenderer.bounds.extents.x;
         spriteHeight = spriteRenderer.bounds.extents.y;
@@ -32,9 +37,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (isDead) return;
+
         MovePlayer();
         Shoot();
-
     }
 
     void Shoot()
@@ -87,19 +93,36 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (isInvincible) { return; }
+        if (isInvincible || isDead) { return; }
 
-        Instantiate(onDeathParticleEffect, transform.position, transform.rotation);
 
         if (collider.tag == "EnemyBullet")
         {
-            GameManager.Instance?.LoseLife();
+            // Instantiate(onDeathParticleEffect, transform.position, transform.rotation);
+            TriggerDeathSequence();
         } 
         else if (collider.tag == "Enemy")
         {
+            spriteRenderer.enabled = false;
             GameManager.Instance?.GameOver();
         }
 
+        
+    }
+
+    void TriggerDeathSequence()
+    {
+        isDead = true;
+        animator.SetBool("IsDead", true);
+        audioSource.Play();
+        Invoke(nameof(DeathSequenceComplete), 1f);
+    }
+
+    void DeathSequenceComplete()
+    {
+        isDead = false;
+        animator.SetBool("IsDead", false);
+        GameManager.Instance?.LoseLife();
         spriteRenderer.enabled = false;
     }
 
