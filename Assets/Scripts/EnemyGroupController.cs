@@ -8,7 +8,8 @@ public class EnemyGroupController : MonoBehaviour
     [SerializeField] private float moveInterval = 0.8f;
     [SerializeField] private float baseMoveInterval = 0.8f;
     [SerializeField] private float moveDistance = 0.15f;
-    [SerializeField] private float downDistance = 0.25f;
+    // [SerializeField] private float downDistance = 0.25f;
+    [SerializeField] private float downDistance = 0.5f;
     private float timePassed = 0f;
     [SerializeField] private float leftBoundary;
     [SerializeField] private float rightBoundary;
@@ -32,6 +33,7 @@ public class EnemyGroupController : MonoBehaviour
     void Start()
     {
         GenerateEnemies();
+        direction = (UnityEngine.Random.Range(0, 2) * 2) - 1;  // -1 or 1, left or right
 
         Camera cam = Camera.main;
         float screenHalfWidth = cam.aspect * cam.orthographicSize;

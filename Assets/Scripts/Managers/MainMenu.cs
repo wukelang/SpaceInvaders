@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        Screen.SetResolution(640, 480, false);
         LoadVolumePrefs();
     }
 
