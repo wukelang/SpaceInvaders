@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private UIManager uiManager;
 
+    [Header("Camera Settings")]
+    [SerializeField] private Camera cameraObject;
+    private float cameraShake = 0f;
+    private Vector3 cameraOriginalPos;
+
     public enum GameState { Menu, Playing, Paused, GameOver }
     public GameState currentState { get; private set; }
     private const string HIGH_SCORE_KEY = "HighScore";
@@ -41,6 +46,8 @@ public class GameManager : MonoBehaviour
 
         highScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY, 0);
         savedHighScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY, 0);
+
+        cameraOriginalPos = cameraObject.transform.position;
     }
 
     void Update()
@@ -68,6 +75,18 @@ public class GameManager : MonoBehaviour
             {
                 ResumeGame();
             }
+        }
+
+        if (cameraShake > 0)
+        {
+            Vector2 shakePos = Random.insideUnitSphere * cameraShake;
+            cameraObject.transform.localPosition = cameraOriginalPos + new Vector3(shakePos.x, shakePos.y, -10);
+            // cameraObject.transform.position = 0f;
+            cameraShake -= Time.deltaTime;
+            cameraShake = cameraShake < 0 ? 0f : cameraShake;  // Prevent negative value
+        } else
+        {
+            cameraObject.transform.position = cameraOriginalPos;
         }
     }
 
@@ -147,6 +166,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1f;
+    }
+
+    // Camera
+    public void ShakeCameraEffect(float shakeAmount)
+    {
+        Debug.Log("shake camera " + shakeAmount);
+        cameraShake += shakeAmount;
     }
 
     // Game State

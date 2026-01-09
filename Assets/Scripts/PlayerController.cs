@@ -108,15 +108,15 @@ public class PlayerController : MonoBehaviour
 
     void TriggerDeathSequence()
     {
+        GameManager.Instance?.ShakeCameraEffect(0.05f);
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         isDead = true;
         animator.SetBool("IsDead", true);
         audioSource.Play();
 
-        StartCoroutine(GameManager.Instance?.FreezeGame(1f));
+        StartCoroutine(GameManager.Instance?.FreezeGame(2f));
 
-        Invoke(nameof(DeathSequenceComplete), 0.2f);
-        // DeathSequenceComplete();        
+        Invoke(nameof(DeathSequenceComplete), 0.1f);
     }
 
     void DeathSequenceComplete()

@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyBulletBehavior : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float bulletSpeed = -2.0f;
+    public float bulletSpeed = -5.0f;
 
     void Start()
     {
