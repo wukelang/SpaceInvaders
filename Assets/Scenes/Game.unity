@@ -2380,38 +2380,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896027f68003fe349a795df7de8c7ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
---- !u!1 &918598300 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6783575289046784862, guid: d388ca9b8370b6446a9742a152269b68, type: 3}
-  m_PrefabInstance: {fileID: 7358761332677368900}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &918598304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5212590484963609951, guid: d388ca9b8370b6446a9742a152269b68, type: 3}
   m_PrefabInstance: {fileID: 7358761332677368900}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &918598305
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 918598300}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dd4430e6478bf3942b076fb624cb04ae, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1289869054
 GameObject:
   m_ObjectHideFlags: 0
@@ -3163,6 +3136,10 @@ PrefabInstance:
       propertyPath: onDeathAnimation
       value: 
       objectReference: {fileID: 7400000, guid: 8965499dda9efca40a646668ea847faf, type: 2}
+    - target: {fileID: 4359294412353422149, guid: d388ca9b8370b6446a9742a152269b68, type: 3}
+      propertyPath: onDeathParticleEffect
+      value: 
+      objectReference: {fileID: 4439915817496276390, guid: 37fda9e84379f7d49af63f34b10ea68e, type: 3}
     - target: {fileID: 5212590484963609951, guid: d388ca9b8370b6446a9742a152269b68, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.43333
@@ -3210,10 +3187,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6783575289046784862, guid: d388ca9b8370b6446a9742a152269b68, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 918598305}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d388ca9b8370b6446a9742a152269b68, type: 3}
 --- !u!1001 &7742152564332364351
 PrefabInstance:

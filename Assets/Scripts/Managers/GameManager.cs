@@ -142,9 +142,8 @@ public class GameManager : MonoBehaviour
         Instantiate(shipObject);
     }
 
-    IEnumerator GameDelay(float duration)
+    public IEnumerator FreezeGame(float duration)
     {
-        Debug.Log("game delay - " + duration);
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1f;

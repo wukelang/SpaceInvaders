@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public AudioMixer audioMixer;
+    
+
     void Start()
     {
         
@@ -24,19 +27,10 @@ public class MainMenu : MonoBehaviour
         #endif
     }
 
-    public void OpenOptionsMenu()
+    public void VolumeSliderChange(int newVolume)
     {
-        
-    }
-
-    public void OpenTutorialMenu()
-    {
-        
-    }
-
-    public void ReturnToTitle()
-    {
-        
+        Debug.Log(newVolume);
+        AudioListener.volume = newVolume;
     }
 
 }

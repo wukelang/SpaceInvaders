@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         float screenHalfWidth = cam.aspect * cam.orthographicSize;
         // Debug.Log("Screen half width: " + screenHalfWidth);
 
-        // SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        // Components
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
@@ -95,10 +95,8 @@ public class PlayerController : MonoBehaviour
     {
         if (isInvincible || isDead) { return; }
 
-
         if (collider.tag == "EnemyBullet")
         {
-            // Instantiate(onDeathParticleEffect, transform.position, transform.rotation);
             TriggerDeathSequence();
         } 
         else if (collider.tag == "Enemy")
@@ -106,23 +104,28 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.enabled = false;
             GameManager.Instance?.GameOver();
         }
-
-        
     }
 
     void TriggerDeathSequence()
     {
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         isDead = true;
         animator.SetBool("IsDead", true);
         audioSource.Play();
-        Invoke(nameof(DeathSequenceComplete), 1f);
+
+        StartCoroutine(GameManager.Instance?.FreezeGame(1f));
+
+        Invoke(nameof(DeathSequenceComplete), 0.2f);
+        // DeathSequenceComplete();        
     }
 
     void DeathSequenceComplete()
     {
+        Instantiate(onDeathParticleEffect, transform.position, transform.rotation);
+        animator.updateMode = AnimatorUpdateMode.Normal;
         isDead = false;
         animator.SetBool("IsDead", false);
-        GameManager.Instance?.LoseLife();
+        GameManager.Instance?.LoseLife();  // Move player to spawn pos
         spriteRenderer.enabled = false;
     }
 

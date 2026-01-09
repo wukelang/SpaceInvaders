@@ -160,6 +160,7 @@ MonoBehaviour:
   spriteHeight: 0
   isInvincible: 0
   onDeathParticleEffect: {fileID: 810547073513503266, guid: 63bee19ae47f69949832c8fa2cec2d66, type: 3}
+  audioSource: {fileID: 0}
 --- !u!95 &6204446812440234560
 Animator:
   serializedVersion: 7

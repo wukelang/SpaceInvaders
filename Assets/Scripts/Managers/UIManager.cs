@@ -107,4 +107,12 @@ public class UIManager : MonoBehaviour
         if (gameOverMenu)
             gameOverMenu.SetActive(isTrue);
     }
+
+    // Options
+    public void VolumeSliderChange(int newVolume)
+    {
+        Debug.Log(newVolume);
+        AudioListener.volume = newVolume;
+    }
+
 }
