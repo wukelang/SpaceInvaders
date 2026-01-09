@@ -81,7 +81,6 @@ public class GameManager : MonoBehaviour
         {
             Vector2 shakePos = Random.insideUnitSphere * cameraShake;
             cameraObject.transform.localPosition = cameraOriginalPos + new Vector3(shakePos.x, shakePos.y, -10);
-            // cameraObject.transform.position = 0f;
             cameraShake -= Time.deltaTime;
             cameraShake = cameraShake < 0 ? 0f : cameraShake;  // Prevent negative value
         } else
@@ -171,7 +170,7 @@ public class GameManager : MonoBehaviour
     // Camera
     public void ShakeCameraEffect(float shakeAmount)
     {
-        Debug.Log("shake camera " + shakeAmount);
+        // Debug.Log("shake camera " + shakeAmount);
         cameraShake += shakeAmount;
     }
 

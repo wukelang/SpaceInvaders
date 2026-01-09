@@ -1,15 +1,16 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public AudioMixer audioMixer;
-    
+    [SerializeField] UnityEngine.UI.Slider volumeSlider;
+    [SerializeField] TextMeshProUGUI volumeText;
+    [SerializeField] string VOLUME_PREFS_KEY = "MASTER_VOLUME";
 
     void Start()
     {
-        
+        LoadVolumePrefs();
     }
 
     public void StartGame()
@@ -27,10 +28,31 @@ public class MainMenu : MonoBehaviour
         #endif
     }
 
-    public void VolumeSliderChange(int newVolume)
+    public void VolumeSliderChange()
     {
-        Debug.Log(newVolume);
-        AudioListener.volume = newVolume;
+        volumeText.text = $"{volumeSlider.value}";
+
+        SetGameVolume((int)volumeSlider.value);
+        SaveVolumePrefs((int)volumeSlider.value);
+    }
+
+    void SaveVolumePrefs(int volume)
+    {
+        PlayerPrefs.SetInt(VOLUME_PREFS_KEY, volume);
+    }
+
+    void SetGameVolume(int volume)
+    {
+        AudioListener.volume = volume / 100.0f;
+    }
+
+    void LoadVolumePrefs()
+    {
+        int savedVolumePref = PlayerPrefs.GetInt(VOLUME_PREFS_KEY, 100);
+        // SetGameVolume(savedVolumePref);
+
+        volumeSlider.value = savedVolumePref;  // This will call VolumeSliderChange
+        volumeText.text = $"{savedVolumePref}";
     }
 
 }
