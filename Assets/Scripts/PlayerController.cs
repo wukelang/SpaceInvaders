@@ -123,10 +123,17 @@ public class PlayerController : MonoBehaviour
     {
         Instantiate(onDeathParticleEffect, transform.position, transform.rotation);
         animator.updateMode = AnimatorUpdateMode.Normal;
+        spriteRenderer.enabled = false;
+
+        StartCoroutine(Respawn(1f));
+    }
+
+    IEnumerator Respawn(float duration)
+    {
+        yield return new WaitForSeconds(duration);
         isDead = false;
         animator.SetBool("IsDead", false);
         GameManager.Instance?.LoseLife();  // Move player to spawn pos
-        spriteRenderer.enabled = false;
     }
 
 }
